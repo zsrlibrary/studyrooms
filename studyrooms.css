@@ -1,0 +1,348 @@
+.studyrooms { position: relative; }
+#study_room_reservations { clear: both; margin: 0; }
+
+.exhibit .n-rms-1 .srs-times { width: 25%; }
+.exhibit .n-rms-1 .srs-studyroom { width: 75%; }
+.exhibit .n-rms-2 .srs-times { width: 25%; }
+.exhibit .n-rms-2 .srs-studyroom { width: 37.5%; }
+.exhibit .n-rms-3 .srs-times { width: 25%; }
+.exhibit .n-rms-3 .srs-studyroom { width: 25%; }
+.exhibit .n-rms-4 .srs-times { width: 22%; }
+.exhibit .n-rms-4 .srs-studyroom { width: 19.5%; }
+.exhibit .n-rms-5 .srs-times { width: 18%; }
+.exhibit .n-rms-5 .srs-studyroom { width: 16.4%; }
+.exhibit .n-rms-6 .srs-times { width: 17%; }
+.exhibit .n-rms-6 .srs-studyroom { width: 13.83%; }
+.exhibit .n-rms-7 .srs-times { width: 15%; }
+.exhibit .n-rms-7 .srs-studyroom { width: 12.14%; }
+.exhibit .n-rms-8 .srs-times { width: 13%; }
+.exhibit .n-rms-8 .srs-studyroom { width: 10.87%; }
+.exhibit .n-rms-9 .srs-times { width: 13%; }
+.exhibit .n-rms-9 .srs-studyroom { width: 9.66%; }
+.exhibit .n-rms-10 .srs-times { width: 12%; }
+.exhibit .n-rms-10 .srs-studyroom { width: 8.8%; }
+.exhibit .n-rms-11 .srs-times { width: 12%; }
+.exhibit .n-rms-11 .srs-studyroom { width: 8%; }
+.exhibit .n-rms-12 .srs-times { width: 12%; }
+.exhibit .n-rms-12 .srs-studyroom { width: 7.33%; }
+
+.flex-container { display: -webkit-flex; display: flex; -webkit-flex-flow: row nowrap; flex-flow: row nowrap; }
+.exhibit .flex-container { display: block; }
+.flex-item { -webkit-flex: 1 1 0; flex: 1 1 0; }
+
+.srs-times.flex-item { -webkit-flex-grow: 1.5; flex-grow: 1.5; }
+.n-rms-1 .srs-studyroom.flex-item { -webkit-flex-grow: 5; flex-grow: 5; }
+
+.srs-rgrid .current_user_reservations .draggable { margin: 0; }
+.srs-rgrid .reserving .draggable { margin: 0; }
+#ghost, #ghost_shadow { min-width: 2.5rem; }
+
+/* available times */
+.srs-times { background: #eee; margin: 2em 0 0 0; padding: 0; } /* float: left; */
+.exhibit .srs-times { float: left; }
+.srs-times li { background: #f7f7f7; border: 1px solid #ddd; height: 1.5rem; list-style: none; margin: -1px auto 0 auto; text-align: center; }
+.srs-times li a { border: none; color: #3b3831; font-size: 1em; }
+.srs-times .odd { color: #555; font-weight: bold; }
+.srs-times .even a { visibility: hidden; }
+
+/* reservation container */
+.srs-rgrid { padding: 0; }
+.srs-rgrid dl { background: #eee; margin: 0; padding: 0; position: relative; } /* float: left; */
+.exhibit .srs-rgrid dl { float: left; }
+.srs-rgrid dt { background: #fff; border: none; height: 2em; margin: 0; padding: 0 5px 0 0; text-align: center; }
+.srs-rgrid dt a { border: none; color: #3b3831; cursor: text; }
+.srs-rgrid dd { background: #fff; border: 1px solid #ddd; height: 1.5rem; line-height: 1.4; list-style: none; margin: -1px 0 0 -1px; padding: 0; position: relative; }
+.srs-rgrid em,
+.srs-rgrid label,
+.srs-rgrid .label, 
+.srs-rgrid input/* remove for javascriptlessness */,
+.srs-rgrid .interactive,
+.submit .interactive { position: absolute; top: -9999px; left: -9999px; }
+.submit [type="submit"] { margin: 0; }
+.srs-rgrid input { margin: 1px; padding: 0; }
+.srs-rgrid .drag-handle { font-size: 0px; margin: 0 0 0 -9999px; text-indent: -9999px; visibility: hidden; }
+
+.srs-rgrid .odd { border-top: 1px solid #999; }
+.srs-rgrid .break { padding: 0; }
+.srs-rgrid .reserving { background: #ff3; border-top: 1px solid #dd1; border-left: 1px solid #dd1; }
+.srs-rgrid .reserving.odd { border-top-color: #bb0; }
+.srs-rgrid .reserved { background: #8e8e8e; border: 1px solid #8e8e8e; }
+
+.srs-rgrid .d-1 { background: #6c6c6c; border: 1px solid #6c6c6c; }
+.srs-rgrid .d-2 { background: #777; border: 1px solid #777; }
+.srs-rgrid .d-3 { background: #7d7d7d; border: 1px solid #7d7d7d; }
+.srs-rgrid .d-4 { background: #888; border: 1px solid #888; }
+.srs-rgrid .d-5 { background: #555; border: 1px solid #555; }
+.srs-rgrid .d-6 { background: #5b5b5b; border: 1px solid #5b5b5b; }
+.srs-rgrid .d-7 { background: #666; border: 1px solid #666; }
+
+.srs-rgrid .current_user_reservations { background: #09f; border: 1px solid #09f; }
+.srs-rgrid .username { color: #f7f7f7; font-size: .7em; font-weight: normal; }
+.srs-rgrid .session { border: none; color: #fc0; font-weight: normal; }
+.srs-rgrid .session:hover { color: #ff0; }
+
+/* #study_room_reservations.td-24 .srs-times .past, #study_room_reservations.td-24 .srs-rgrid .past { display: none; } */
+/* do not show past */
+.srs-times .past, .srs-rgrid .past { display: none; }
+.srs-times .past { background: #eee; }
+.srs-times .past a { color: #ccc; font-weight: normal; }
+.srs-rgrid .past { background: #eee; }
+
+/* forms */
+fieldset { border: none; padding: 0; }
+
+.srs-reservation { margin: 0 0 1em 0; padding: 0; }
+.srs-reservation fieldset fieldset { border: none; padding: 0; position: static; width: auto; }
+.srs-reservation div { clear: both; margin: 0 0 1em 0; padding: 0; }
+.srs-reservation div label { display: block; font-weight: bold; padding: 0 0 .5em 0; }
+.srs-reservation div .error { padding: .25em 0; }
+.srs-reservation label .note { color: #7e7774; font-size: 90%; }
+.srs-reservation label em { color: #f00; font-size: 80%; font-style: normal; text-transform: uppercase; }
+.srs-reservation .radio { clear: none; }
+.srs-reservation .radio label { display: inline; float: none; font-weight: normal; margin: 0 1em 0 0; padding: 0; width: auto; }
+
+form .srs-reservation-info { margin: 0 0 1em 0; }
+form .hidden { border: none; margin: 0; padding: 0; }
+
+.login_set + #this_reservation { border-top: 1px solid #e3decf; margin: 2em 0 0 0; padding: 1em 0 0 0; }
+#this_reservation h3 { font-size: 1em; margin: 0 0 .5em 0; padding: 0; }
+#this_reservation .srs-admin-options { background: #f7f7f7; border: 1px solid #e3decf; margin: 2em 0 0 0; padding: 1em; }
+#this_reservation .srs-admin-options h4 { margin: 0 0 .5em 0; }
+#this_reservation .srs-admin-options p { line-height: 1.5em; margin: 0; }
+fieldset #this_reservation { margin: 0 0 1.5em 0; }
+
+.submit .cancel { margin: 1em 0; text-align: right; }
+
+.srs-reservation .login_set { background-color: #fffbe8; border: 1px solid #e3decf; padding: 5%; } 
+.srs-reservation .login_set.solo { background-color: #fff; }
+.srs-reservation .srs-reservation-session { padding: 0; }
+.srs-reservation .srs-reservation-session .txt { padding: 0 3%; }
+.srs-reservation .srs-reservation-session .txt div { padding: 1% 0; }
+.cancel .srs-reservation-session { background: #fffbe8; }
+.srs-reservation-details { border: none; float: none; padding: 0; }
+.srs-reservation-details dt { border: none; float: left; line-height: 1.5em; margin: 0; padding: 0; width: 15%; }
+.srs-reservation-details dd { border: none; float: none; line-height: 1.5em; margin: 0; padding: 0; }
+
+#reminder label { display: inline; margin: 0 1em 0 0; }
+#reminder .radio { display: inline; }
+#reminder .txt input, 
+#reminder .txt select { width: 50%; }
+
+.hide { display: none; }
+.show { display: block; }
+
+/* main */
+.srs-how-to { clear: both; margin: 0; padding: 0; }
+.srs-how-to > li { box-sizing: border-box; float: left; font-size: 1em; height: 31em; line-height: 1.5em; list-style: none; margin: 0 2% 1.5em 0; padding: 2em; width: 32%; }
+.srs-how-to ol { margin: 10px; padding: 0; }
+.srs-how-to li ol { margin: 0; padding: 0 0 0 5%; }
+.srs-how-to li ul li { list-style: square; margin: 0 5% 5px 5%; }
+.srs-how-to li ol li { list-style: decimal; margin: 0 5% 5px 5%; }
+.srs-how-to li h3 { color: #000; font-size: 1.5em; margin: 0 0 10px 0; padding: 0; }
+.srs-how-to li p { margin: 1.5em 0; text-align: left; }
+.srs-how-to li a { color: #3b3831; }
+.srs-how-to li .login { background: #fff; border: 1px solid #ccc; padding: 10px; }
+
+.srs-how-to #schedule { background: #feb; border: 1px solid #fc6; }
+.srs-how-to #schedule h3 { color: #960; }
+
+.srs-how-to #selecting { background: #bfb url(/files/studyrooms-selecting.png) no-repeat 10px 90%; border: 1px solid #6f6; }
+.srs-how-to #selecting h3 { color: #690; }
+
+.srs-how-to #confirming { background: #bef url(/files/studyrooms-confirming.png) no-repeat 10px 90%; border: 1px solid #6cf; margin: 0 0 1.5em 0; }
+.srs-how-to #confirming h3 { color: #069; }
+
+.srs-how-to .highlight { background: #ff3; border: none; margin: 0; padding: 2px; }
+.srs-how-to .reserve, 
+.srs-how-to .save { background: #eee; border: 2px outset; padding: 2px; }
+
+.srs-how-do-i { background: #fafafa; border: 1px solid #eaeaea; clear: both; float: left; margin: 0 0 1.5em 0; padding: 2em; }
+.srs-how-do-i h3 { float: left; font-size: 150%; margin: 0; padding: 0; width: 33%; }
+.srs-how-do-i ul { margin: 0 0 0 33%; padding: 0 0 0 30px; }
+.srs-how-do-i #moving { background: url(/files/studyrooms-moving-reservation.png) no-repeat 0 90%; padding: 0 0 150px 0; }
+.srs-how-do-i #seeing-room-info { background: url(/files/studyrooms-room-info.png) no-repeat 0 90%;	padding: 0 0 150px 0; }
+
+#your_reservation_indicator { background: #09f; color: #09f; text-indent: -9999px; position: relative; }
+#other_reservation_indicator { background: #888; color: #888; text-indent: -9999px; position: relative; }
+#your_reservation_indicator:after, 
+#other_reservation_indicator:after { content: ""; display: block; height: 1em; position: absolute; top: 0; left: 0; width: 2em; }
+
+.srs-how-to #schedule .today, #user_reservations .today { border-bottom: 1px solid #f99; color: #c00; text-transform: uppercase; }
+.srs-how-to #schedule .today:hover, #user_reservations .today:hover { border-bottom-color: #f66; color: #f00; }
+
+/* draggable */
+#ghost { background: #000; border: 1px solid #000; cursor: move; height: 1.4rem; list-style: none; opacity: 0.5; position: absolute; z-index: 20; }
+#ghost label, #ghost input.interactive, #ghost em, #ghost .drag-handle { display: none; }
+#ghost_shadow { background: #ff9; border: 1px solid #ff9; height: 1.4rem; overflow: hidden; position: absolute; z-index: 15; }
+
+.srs-rgrid .current_user_reservations .draggable, 
+.srs-rgrid .reserving .draggable 
+{
+	cursor: move; display: block; font-size: 100%; height: 1.5rem; padding: 0; text-indent: 0; visibility: visible; width: 1.5rem; 
+}
+
+/* exhibit mode */
+.exhibit header, .exhibit nav, .exhibit footer { display: none; }
+.exhibit .srs-menu, .exhibit .srs-date-menu, .exhibit .srs-date-search, .exhibit .support, .exhibit .submit { display: none; }
+.exhibit { background: #fff; box-shadow: none; float: none; margin: 0 auto; padding: 0; }
+.exhibit #content { background: none; }
+.exhibit #content .container { box-shadow: none; }
+.exhibit .srs-frame { border: none; display: block; margin: 0; padding: 0; }
+.exhibit .srs-frame .srs-model { float: none; text-align: center; }
+.exhibit .srs-frame .srs-time { display: none; }
+.exhibit .srs-rgrid { margin: 1em 0 0 0; }
+.exhibit .past { display: none; }
+
+/* v7.1 mods */
+.srs-menu { margin: 0; padding: 0; position: absolute; top: 3.3em; right: 3rem; }
+.srs-menu li { color: #e3decf; display: inline-block; line-height: 1em; list-style: none; margin: 0; }
+.srs-menu .srs-welcome { font-weight: bold; }
+.srs-menu a { border: none; color: #e3decf; font-weight: normal; margin: 0 0 0 1em; }
+.srs-menu a:hover { color: #fff; }
+
+.srs-frame { border-bottom: 1px solid #999; margin: 0 0 2rem 0; padding: 0 0 1em 0; position: relative; }
+.srs-frame .srs-model { float: left; margin: 0; padding: 0; }
+.srs-frame .srs-location { color: #82641c; font-size: 1.3em; margin: 0 .5em 0 0; padding: 0; text-transform: uppercase; }
+.srs-frame .srs-time { color: #97907e; font-size: .7em; font-weight: normal; }
+.srs-frame:after { clear: both; content: ""; display: table; }
+
+.srs-frame .srs-date-menu { float: right; margin: .9em 0 0 0; }
+.srs-frame li { display: inline-block; line-height: 1em; list-style: none; margin: 0 0 0 2em; }
+.srs-frame .srs-date-menu a { border: none; display: block; text-transform: uppercase; }
+.srs-frame .srs-date-menu .srs-current a { color: #000; font-weight: bold; }
+
+.login { margin: 0; }
+.submit, 
+.srs-reservation .submit { border: none; margin: 1em 0; padding: 1em 0; text-align: right; }
+
+.srs-date-search { color: #97907e; margin: -1em 0 1em 0; text-align: right; }
+.srs-date-search label { display: inline; float: none;font-weight: normal; width: auto; }
+.srs-date-search input[type='text'] { width: 25%; }
+
+.srs-upcoming-reservations { border: 1px solid #e3decf; padding: 3%; }
+.srs-upcoming-reservations h3 { margin: 0; }
+
+.srs-support h4 { display: none; }
+.srs-support p { margin: 0; }
+.srs-support ul { margin: 0; padding: 0; }
+.srs-support ul li { display: inline-block; list-style: none; margin: 0 1em 0 0; }
+.srs-support .srs-tagline { float: right; font-weight: bold; margin: 0; text-align: right; }
+.srs-support .srs-options { color: #97907e; font-size: .9em; line-height: 1.3; margin: 1em 0 0 0; text-align: right; }
+.srs-support .srs-options .lead { display: block; }
+.srs-support .srs-options a { color: #8d8674; }
+.srs-support .srs-options a:hover { color: #000; }
+
+.srs-floor-maps { margin: 1em 0; }
+.srs-floor-map { border: 1px solid #e3decf; box-sizing: border-box; clear: both; float: left; margin: 0 0 1em 0; padding: 2em; width: 100%; }
+.srs-floor-map img { float: left; margin: 0; padding: 0; max-width: 50%; }
+.srs-floor-map h3, 
+.srs-floor-map dl { clear: none; float: right; margin: 0 0 1em 0; width: 45%; }
+
+/**
+ * responsive retrofitting
+ */
+
+@media (max-width: 850px) {
+
+	.srs-menu { color: #97907e; font-size: .8em; margin: 0; padding: 0; position: static; text-align: left; }
+	.srs-menu li { margin: 0 .5em 0 0; }
+	.srs-menu li:after { content: "|"; }
+	.srs-menu li:last-child { margin: 0; }
+	.srs-menu li:last-child:after { content: ""; }
+	.srs-menu .srs-welcome { display: none; }
+	.srs-menu a { color: #e3decf; margin: 0; padding: 0 .5em 0 0; }
+	.srs-menu a:hover { color: #7e7774; }
+	.srs-menu li:last-child a { padding: 0; }
+	.srs-frame { margin: 0 0 1rem 0; padding: 0; }
+	.srs-frame .srs-model { float: none; margin: 0; line-height: 1; }
+	.srs-frame .srs-location { font-size: 1.1em; margin: 0; }
+	.srs-frame .srs-time { display: block; font-size: .6em; }
+	.srs-frame .srs-date-menu { float: left; margin: .3em 0 .5em 0; }
+	.srs-frame .srs-date-menu li { margin: 0 1em 0 0; }
+	.srs-frame .srs-date-menu li:last-child { margin: 0; }
+	.srs-date-search input[type='text'] { width: 40%; }
+	
+	.srs-times { display: none; }
+	.flex-container { display: block; }
+
+	.srs-rgrid { margin: 0; padding: 0; }
+	.srs-rgrid dl { background: #f7f7f7; border: 1px solid #e0dbd0; box-shadow: 1px 1px 2px #e3e3e3; float: none; margin: -1px 0 0 0; width: 100% !important; }
+	.srs-rgrid dt { background: none; border-top: 1px solid #fff; height: auto; padding: 0; }
+	.srs-rgrid dt a { background: url(data:image/gif;base64,R0lGODlhCwAJAIABAMzMzP///yH5BAEAAAEALAAAAAALAAkAAAIOjI+pBu1+HkRyTbuyPgUAOw==) no-repeat 93% 50%; cursor: pointer; display: block; padding: .5em 1em; text-align: left; }
+	.srs-rgrid dd { border-color: #ddd #ddd #ddd #999; height: auto; line-height: normal; margin: -1px 1em 0 1em; width: auto !important; } /* border-top-style: dotted; */
+	.srs-rgrid label { color: #7e7774; padding: 0; position: static; }
+	.srs-rgrid .label { color: #7e7774; padding: 0; position: static; }
+	.srs-rgrid .room-name { display: none; }
+	.srs-rgrid .time-slot { display: block; padding: .5em; }
+	.srs-rgrid .even .time-slot { visibility: hidden; }
+	.srs-rgrid .session { display: none; }
+	.srs-rgrid .username { display: none; }
+	.srs-rgrid .drag-handle { display: none; }
+
+	.srs-rgrid .current_user_reservations .draggable, 
+	.srs-rgrid .reserving .draggable { display: none; }
+
+	.srs-rgrid .day { background: #fff; }
+	.srs-rgrid .reserved { background: #fff; } /* padding: 1px; */
+	.srs-rgrid .reserved .label { background: #eaeaea; } /* background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAKklEQVQIW2N89+7dfwYoWL16NQMjTADECQ0NhQjAOCCFjDNnzvwPkoEBAI2XFyrj2IlQAAAAAElFTkSuQmCC); */
+	.srs-rgrid .reserving { background: #ff3; border: 1px solid #ff3; }
+	.srs-rgrid .even { border-color: #ccc #ccc #ccc #999 !important; }
+	.srs-rgrid .odd { border-color: #999 #ccc #ccc #999 !important; }
+	.srs-rgrid .current_user_reservations { background: #9cf; }
+
+	.srs-rgrid dd { display: none; }
+	.srs-rgrid dl:target { background: #fffbe8; padding: 0 0 1em 0; }
+	.srs-rgrid dl:target dt a { background-position: 93% 25%; font-weight: bold; }
+	.srs-rgrid dl:target dt a:after { content: attr(title); color: #7e7774; display: block; font-size: .8em; font-weight: normal; line-height: 1.3; width: 93%; }
+	.srs-rgrid dl:target dd { display: block; }
+	.srs-rgrid :target .past { display: none; }
+
+	.standard input[type='text'], 
+	.standard input[type='password'], 
+	.standard input[type='email'], 
+	.standard input[type='tel'], 
+	.standard textarea { padding: 3%; width: 90%; }
+
+	.submit .cancel { font-size: .8em; margin: .5em 0 0 0; }
+
+	/* fixed footer for reserve button */
+	.submit.active { background: rgba(33,33,33,.8); border-top: 1px solid #212121; box-sizing: border-box; margin: 0; padding: 1em; position: fixed; right: 0; bottom: 0; text-align: right; width: 100%; z-index: 99; }
+	.submit.active [type="submit"] { background: #fff; border: 1px solid #c2bdad; border-radius: 4px; color: #312c28; font-size: 1.1em; margin: 0 1em 0 0; padding: .5em; }
+
+	#this_reservation { margin: 0 0 1em 0; }
+	#this_reservation h3 { float: none; }
+	.srs-reservation-details { margin: 0; }
+	.srs-reservation-details dt { width: 25%; }
+
+	.srs-how-to #schedule, 
+	.srs-how-to #selecting, 
+	.srs-how-to #confirming { box-sizing: border-box; height: auto; margin: 0 0 1em 0; padding: 1em; width: 100%; }
+	.srs-how-to #selecting, 
+	.srs-how-to #confirming { background-position: 100% 50%; }
+	.srs-how-to li { float: none; height: auto; margin: 0; padding: 0; width: auto; }
+	.srs-how-to li ul, 
+	.srs-how-to li ol { display: none; float: none; margin: 0; }
+	.srs-how-to li .login { margin: .5em 0; padding: 1em; }
+	.srs-how-to #selecting ol { margin: 0 60% 0 0; }
+
+	.srs-how-do-i { padding: 1em; }
+	.srs-how-do-i h3 { float: none; width: auto; }
+	.srs-how-do-i ul { margin: 0; }
+
+	.srs-floor-map { padding: 1em; }
+	.srs-floor-map h3 { margin: 1em 0 0 0; }
+	.srs-floor-map h3, 
+	.srs-floor-map dl, 
+	.srs-floor-map img { max-width: 100%; width: 100%; }
+	.srs-floor-map dl { margin: 0; }
+	.srs-floor-map dt,
+	.srs-floor-map dd { border: none; display: inline; margin: 0; }
+	.srs-floor-map dd:after { content: ''; display: block; }
+
+	.srs-support ul { margin: 0 0 1em 0; }
+	.srs-support ul li { display: block; }
+	.srs-support .srs-tagline { float: none; text-align: left; }
+	.srs-support .srs-options { font-size: .8em; line-height: 1.2; margin: 1em 0 2em 0; text-align: left; }
+	.srs-support .srs-options .lead { display: inline; }
+
+}
