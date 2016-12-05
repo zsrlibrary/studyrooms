@@ -569,7 +569,7 @@ class ZSR_Study_Rooms_Reservation
 			if($this->key('active_reservation_id'))
 			{
 				$this->output .= '<p class="attention">Are you sure you want to cancel this reservation?</p>'
-				.                '<form class="standard reservation cancel" action="https://'.$this->config->domain.$this->config->dir.'reservations" method="post">';
+				.                '<form class="srs-reservation cancel standard" action="https://'.$this->config->domain.$this->config->dir.'reservations" method="post">';
 				
 				$this->display_login_embed();
 
@@ -612,7 +612,7 @@ class ZSR_Study_Rooms_Reservation
 
 		if(!empty($reservations))
 		{
-			$this->output .= '<form class="standard srs-reservation reserve" action="https://'.$this->config->domain.$this->config->dir.'reservations" method="post">';
+			$this->output .= '<form class="srs-reservation reserve standard" action="https://'.$this->config->domain.$this->config->dir.'reservations" method="post">';
 			
 			$this->display_login_embed();
 
@@ -871,7 +871,7 @@ class ZSR_Study_Rooms_Reservation
 			}
 		}
 
-		$this->output .= '<form class="standard reservation login" action="https://'.$this->config->domain.$this->config->dir.'login" method="post">'
+		$this->output .= '<form class="srs-reservation login standard" action="https://'.$this->config->domain.$this->config->dir.'login" method="post">'
 		.                '<fieldset class="login_set solo">'
 		.                $this->get_username_field()
 		.                $this->get_password_field()
