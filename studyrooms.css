@@ -164,8 +164,8 @@ fieldset #this_reservation { margin: 0 0 1.5em 0; }
 
 #your_reservation_indicator { background: #09f; color: #09f; text-indent: -9999px; position: relative; }
 #other_reservation_indicator { background: #888; color: #888; text-indent: -9999px; position: relative; }
-#your_reservation_indicator:after, 
-#other_reservation_indicator:after { content: ""; display: block; height: 1em; position: absolute; top: 0; left: 0; width: 2em; }
+#your_reservation_indicator::after, 
+#other_reservation_indicator::after { content: ""; display: block; height: 1em; position: absolute; top: 0; left: 0; width: 2em; }
 
 .srs-how-to #schedule .today, #user_reservations .today { border-bottom: 1px solid #f99; color: #c00; text-transform: uppercase; }
 .srs-how-to #schedule .today:hover, #user_reservations .today:hover { border-bottom-color: #f66; color: #f00; }
@@ -204,7 +204,7 @@ fieldset #this_reservation { margin: 0 0 1.5em 0; }
 .srs-frame .srs-model { float: left; margin: 0; padding: 0; }
 .srs-frame .srs-location { color: #82641c; font-size: 1.3em; margin: 0 .5em 0 0; padding: 0; text-transform: uppercase; }
 .srs-frame .srs-time { color: #97907e; font-size: .7em; font-weight: normal; }
-.srs-frame:after { clear: both; content: ""; display: table; }
+.srs-frame::after { clear: both; content: ""; display: table; }
 
 .srs-frame .srs-date-menu { float: right; margin: .9em 0 0 0; }
 .srs-frame li { display: inline-block; line-height: 1em; list-style: none; margin: 0 0 0 2em; }
@@ -246,9 +246,9 @@ fieldset #this_reservation { margin: 0 0 1.5em 0; }
 
 	.srs-menu { color: #97907e; font-size: .8em; margin: 0; padding: 0; position: static; text-align: left; }
 	.srs-menu li { margin: 0 .5em 0 0; }
-	.srs-menu li:after { content: "|"; }
+	.srs-menu li::after { content: "|"; }
 	.srs-menu li:last-child { margin: 0; }
-	.srs-menu li:last-child:after { content: ""; }
+	.srs-menu li:last-child::after { content: ""; }
 	.srs-menu .srs-welcome { display: none; }
 	.srs-menu a { color: #e3decf; margin: 0; padding: 0 .5em 0 0; }
 	.srs-menu a:hover { color: #7e7774; }
@@ -291,9 +291,10 @@ fieldset #this_reservation { margin: 0 0 1.5em 0; }
 	.srs-rgrid .current_user_reservations { background: #9cf; }
 
 	.srs-rgrid dd { display: none; }
+	.srs-rgrid dt a::after { color: #ccc; content: attr(data-availability); font-size: .8em; float: right; margin: .125em 2.5em 0 0; }
 	.srs-rgrid dl:target { background: #fffbe8; padding: 0 0 1em 0; }
 	.srs-rgrid dl:target dt a { background-position: 93% 25%; font-weight: bold; }
-	.srs-rgrid dl:target dt a:after { content: attr(title); color: #7e7774; display: block; font-size: .8em; font-weight: normal; line-height: 1.3; width: 93%; }
+	.srs-rgrid dl:target dt a::after { content: attr(title); color: #7e7774; display: block; float: none; font-size: .8em; font-weight: normal; line-height: 1.3; margin: 0; width: 93%; }
 	.srs-rgrid dl:target dd { display: block; }
 	.srs-rgrid :target .past { display: none; }
 
@@ -337,7 +338,7 @@ fieldset #this_reservation { margin: 0 0 1.5em 0; }
 	.srs-floor-map dl { margin: 0; }
 	.srs-floor-map dt,
 	.srs-floor-map dd { border: none; display: inline; margin: 0; }
-	.srs-floor-map dd:after { content: ''; display: block; }
+	.srs-floor-map dd::after { content: ''; display: block; }
 
 	.srs-support ul { margin: 0 0 1em 0; }
 	.srs-support ul li { display: block; }
