@@ -342,6 +342,7 @@ class ZSR_Study_Rooms_Reservation
 				// init
 				$room_info = '';
 				$reservation_grid = '';
+				$reservation_list = '';
 				$available_times = '';
 				
 				// reservations
@@ -363,15 +364,6 @@ class ZSR_Study_Rooms_Reservation
 				
 				foreach($rooms as $room)
 				{
-					$available_times = '';
-					$this_room = '';
-					
-					// this room
-					$this_room_id = str_replace(' ','-',strtolower($room['room_name']));
-					$this_room .= '<a href="#'.$this_room_id.'" title="Location: '.$room['location'].' | Capacity: '.$room['capacity'].' | Equipment: '.$room['equipment'].'">';
-					$this_room .= (count($rooms) > 7) ? str_replace('Room ','',$room['room_name']) : $room['room_name'];
-					$this_room .= '</a>';
-					
 					// misc
 					$n = (strtotime(date('Y-m-d ga',$hours['open'])) == $hours['open'] - 60*30) ? ' even' : ' odd';
 					$open_24_hours = (stripos($hours['text'],'Open 24 Hours') !== false) ? true : false;
@@ -379,11 +371,11 @@ class ZSR_Study_Rooms_Reservation
 					$class = ' open';
 					$extra = '';
 					$booked = '';
+					$data_open = 0;
+					$available_times = '';
+					$reservation_cells = '';
 					$previous_reservation_id = '';
 					$reservation_color_code = mt_rand(1,7);
-					
-					$reservation_grid .= '<dl id="'.$this_room_id.'" class="srs-studyroom flex-item">';
-					$reservation_grid .= '<dt>'.$this_room.'</dt>';
 					
 					for($i = $hours['open']; $i < $hours['close']; $i += (30*60))
 					{
@@ -464,6 +456,7 @@ class ZSR_Study_Rooms_Reservation
 							else
 							{
 								$class = ' open'.$view.$break;
+								$data_open++;
 							}
 						}
 						else
@@ -472,28 +465,40 @@ class ZSR_Study_Rooms_Reservation
 							$class = ' past';
 						}
 						
-						$reservation_grid .= '<dd class="cell'.$n.$class.'">';
+						$reservation_cells .= '<dd class="cell'.$n.$class.'">';
 						if(strpos($class,'past') !== false)
 						{
-							$reservation_grid .= '<em>unavailable</em>';
+							$reservation_cells .= '<em>unavailable</em>';
 						}
 						elseif(strpos($class,'open') !== false)
 						{
-							$reservation_grid .= '<input type="checkbox" name="srr-'.$room['room_id'].'-'.$i.'" id="srr-'.$room['room_id'].'-'.$i.'" value="Y">';
-							$reservation_grid .= '<label for="srr-'.$room['room_id'].'-'.$i.'"><span class="room-name">'.$room['room_name'].'</span> <span class="time-slot">'.date('g:i A',$i).'</span></label>';
+							$reservation_cells .= '<input type="checkbox" name="srr-'.$room['room_id'].'-'.$i.'" id="srr-'.$room['room_id'].'-'.$i.'" value="Y">';
+							$reservation_cells .= '<label for="srr-'.$room['room_id'].'-'.$i.'"><span class="room-name">'.$room['room_name'].'</span> <span class="time-slot">'.date('g:i A',$i).'</span></label>';
 						}
 						else
 						{
-							$reservation_grid .= $booked;
+							$reservation_cells .= $booked;
 						}
-						$reservation_grid .= '<i class="drag-handle">&nbsp;</i></dd>';
+						$reservation_cells .= '<i class="drag-handle">&nbsp;</i></dd>';
 						
 						$available_times .= '<li class="'.trim($n.$available_times_class).'"><a id="time_'.$time_id.'" href="#time_'.$time_id.'">'.$time.'</a></li>';
 						
 						$n = ($n == ' odd') ? ' even' : ' odd';
 					}
-					$reservation_grid .= '</dl>';
+
+					// this room
+					$this_room_id = str_replace(' ','-',strtolower($room['room_name']));
+					$this_room_name = (count($rooms) > 7) ? str_replace('Room ','',$room['room_name']) : $room['room_name'];
+					$this_room_info = 'Location: '.$room['location'].' | Capacity: '.$room['capacity'].' | Equipment: '.$room['equipment'];
+					$this_room_data = !empty($data_open) ? ($data_open*.5). 'h open' : '';
+					$this_room_link = '<a href="#'.$this_room_id.'" title="'.$this_room_info.'" data-availability="'.$this_room_data.'">'.$this_room_name.'</a>';
+					
+					$reservation_list .= '<dl id="'.$this_room_id.'" class="srs-studyroom flex-item">';
+					$reservation_list .= '<dt>'.$this_room_link.'</dt>';
+					$reservation_list .= $reservation_cells;
+					$reservation_list .= '</dl>';
 				}
+
 				$active_reservation_id = array_unique($active_reservation_id);
 				
 				// available times container
@@ -511,7 +516,7 @@ class ZSR_Study_Rooms_Reservation
 				$reservation_grid_container .= '<form id="study_room_reservations"'.$time_diff.' action="https://'.$this->config->domain.$this->config->dir.'reserve" method="post">';
 				$reservation_grid_container .= '<div class="srs-rgrid flex-container">';
 				$reservation_grid_container .= $available_times_container;
-				$reservation_grid_container .= $reservation_grid;
+				$reservation_grid_container .= $reservation_list;
 				$reservation_grid_container .= '</div>';
 				$reservation_grid_container .= '<div class="submit">';
 				$reservation_grid_container .= (!empty($active_reservation_id)) ? '<input type="hidden" name="active_reservation_id" value="'.implode(':',$active_reservation_id).'">' : '';
