@@ -365,7 +365,7 @@ class ZSR_Study_Rooms_Reservation
 				foreach($rooms as $room)
 				{
 					// misc
-					$n = (strtotime(date('Y-m-d ga',$hours['open'])) == $hours['open'] - 60*30) ? ' even' : ' odd';
+					$n = (strtotime(date('Y-m-d ga',$hours['open'])) == $hours['open'] - 30*60) ? ' even' : ' odd';
 					$open_24_hours = (stripos($hours['text'],'Open 24 Hours') !== false) ? true : false;
 					$view = ($open_24_hours) ? ' day' : '';
 					$class = ' open';
@@ -490,7 +490,7 @@ class ZSR_Study_Rooms_Reservation
 					$this_room_id = str_replace(' ','-',strtolower($room['room_name']));
 					$this_room_name = (count($rooms) > 7) ? str_replace('Room ','',$room['room_name']) : $room['room_name'];
 					$this_room_info = 'Location: '.$room['location'].' | Capacity: '.$room['capacity'].' | Equipment: '.$room['equipment'];
-					$this_room_data = !empty($data_open) ? ($data_open*.5). 'h open' : '';
+					$this_room_data = ($data_open*.5). 'h available';
 					$this_room_link = '<a href="#'.$this_room_id.'" title="'.$this_room_info.'" data-availability="'.$this_room_data.'">'.$this_room_name.'</a>';
 					
 					$reservation_list .= '<dl id="'.$this_room_id.'" class="srs-studyroom flex-item">';
@@ -832,7 +832,7 @@ class ZSR_Study_Rooms_Reservation
 				
 				$this->output .= '</dl>';
 
-				if($this->key('action') != 'cancel' && $this->user->is_admin())
+				if($this->user->is_admin() && $this->key('action') != 'cancel' && time() < $reservation['start_timestamp'])
 				{
 					// @todo <em>Note: The user will be notified of the cancellation.</em>
 					$this->output .= '<div class="srs-admin-options">'
@@ -1450,7 +1450,7 @@ class ZSR_Study_Rooms_Reservation
 
 	private function update_reservation($reservation_id,$subject,$notes,$room_id,$username,$start_datetime,$end_datetime,$reminder,$start_ymd)
 	{
-		if($this->user->is_admin() || !$this->db->get_existing_reservation($room_id,$username,$start_datetime,$end_datetime,$start_ymd))
+		if(!$this->db->get_existing_reservation($room_id,$username,$start_datetime,$end_datetime,$start_ymd))
 		{
 			$session_id = '';
 			$reservation_session = $this->db->get_reservation_session($reservation_id);
@@ -1506,7 +1506,10 @@ class ZSR_Study_Rooms_Reservation
 
 	private function add_reservation($subject,$notes,$room_id,$username,$start_datetime,$end_datetime,$reminder,$open,$close)
 	{
-		if($this->user->is_admin() || !$this->db->get_double_booked_reservation($username,$room_id,$start_datetime,$end_datetime))
+		// maybe don't allow admin users to double book?
+		// ...especially over a different user?
+		// $this->user->is_admin()
+		if(!$this->db->get_double_booked_reservation($username,$room_id,$start_datetime,$end_datetime))
 		{
 			if(!$this->over_day_hour_limit($open,$close,$start_datetime,$end_datetime,$username))
 			{
@@ -1694,7 +1697,7 @@ class ZSR_Study_Rooms_Reservation
 
 	private function this_half_hour()
 	{
-		$half_hour = 60*30;
+		$half_hour = 30*60;
 		$this_hour = strtotime(date('Y-m-d ga'));
 		return ((time() - $this_hour) >= $half_hour) ? $this_hour + $half_hour : $this_hour;	
 	}
@@ -1950,9 +1953,25 @@ class ZSR_Study_Rooms_Reservation
 
 	private function check_time_available($start_datetime,$end_datetime)
 	{
-		if(strtotime($start_datetime) >= $this->this_half_hour() && strtotime($end_datetime) <= mktime(0,0,0,date('m'),date('d')+$this->days_allowed_future,date('Y')))
+		$start_timestamp = strtotime($start_datetime);
+		$end_timestamp = strtotime($end_datetime);
+		$this_half_hour_timestamp = $this->this_half_hour();
+		$days_allowed_future_timestamp = mktime(0,0,0,date('m'),date('d')+$this->days_allowed_future,date('Y'));
+
+		if($start_timestamp >= $this_half_hour_timestamp && $end_timestamp <= $days_allowed_future_timestamp)
 		{
-			return true;
+			$library_hours = $this->hours->get_hours($start_datetime,$this->config->hours_of_operation,$this->days_allowed_future);
+
+			if($start_timestamp >= $library_hours['open'] && $end_timestamp <= $library_hours['close'])
+			{
+				return true;
+			}
+			else
+			{
+				$this->error[] = $this->config->messages['error']['check_library_available'];
+
+				return false;
+			}
 		}
 		else
 		{
