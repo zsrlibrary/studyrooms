@@ -109,9 +109,11 @@ class ZSR_Study_Rooms_Reservation
 
 			// set display mode
 			$_GET['display_mode'] = 'fxs';
+			$_GET['do_not_track'] = false;
 			if(strpos($request,'exhibit') !== false)
 			{
 				$_GET['display_mode'] = 'exhibit';
+				$_GET['do_not_track'] = true;
 			}
 
 			// get match
@@ -189,7 +191,7 @@ class ZSR_Study_Rooms_Reservation
 		$this->page_assets['css'][] = $this->config->template['css'];
 		$this->page_assets['js'][] = $this->config->template['js'];
 		$this->page_assets['dm'] = $this->key('display_mode');
-		$this->page_assets['dnt'] = false;
+		$this->page_assets['dnt'] = $this->key('do_not_track');
 		$this->page_title = $this->config->template['title'];
 		
 		// reservations
@@ -297,12 +299,6 @@ class ZSR_Study_Rooms_Reservation
 
 	private function net_output()
 	{
-		if(in_array('exhibit',$this->page_assets['template']))
-		{
-			// do not track
-			$this->page_assets['dnt'] = 1;
-		}
-
 		$this->output = '<div class="'.$this->get_page_template().'">'
 		.               $this->get_page_header()
 		.               '<section class="'.$this->config->template['section_class'].'">'
