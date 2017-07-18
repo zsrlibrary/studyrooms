@@ -484,7 +484,8 @@ class ZSR_Study_Rooms_Reservation
 
 					// this room
 					$this_room_id = str_replace(' ','-',strtolower($room['room_name']));
-					$this_room_name = (count($rooms) > 7) ? str_replace('Room ','',$room['room_name']) : $room['room_name'];
+					// $this_room_name = (count($rooms) > 7) ? str_replace('Room ','',$room['room_name']) : $room['room_name'];
+					$this_room_name = str_replace('Room ','',$room['room_name']);
 					$this_room_info = 'Location: '.$room['location'].' | Capacity: '.$room['capacity'].' | Equipment: '.$room['equipment'];
 					$this_room_data = ($data_open*.5). 'h available';
 					$this_room_link = '<a href="#'.$this_room_id.'" title="'.$this_room_info.'" data-availability="'.$this_room_data.'">'.$this_room_name.'</a>';
@@ -1502,34 +1503,28 @@ class ZSR_Study_Rooms_Reservation
 
 	private function add_reservation($subject,$notes,$room_id,$username,$start_datetime,$end_datetime,$reminder,$open,$close)
 	{
-		// maybe don't allow admin users to double book?
-		// ...especially over a different user?
-		// $this->user->is_admin()
-		if(!$this->db->get_double_booked_reservation($username,$room_id,$start_datetime,$end_datetime))
+		if(!$this->overbooked_reservation($username,$room_id,$start_datetime,$end_datetime) && !$this->over_day_hour_limit($open,$close,$start_datetime,$end_datetime,$username))
 		{
-			if(!$this->over_day_hour_limit($open,$close,$start_datetime,$end_datetime,$username))
+			// session notes
+			$session_id = '';
+			if(!empty($subject) || !empty($notes))
 			{
-				// session notes
-				$session_id = '';
-				if(!empty($subject) || !empty($notes))
+				$add_session = $this->db->add_session($subject,$notes);
+				if(!empty($add_session['error']))
 				{
-					$add_session = $this->db->add_session($subject,$notes);
-					if(!empty($add_session['error']))
-					{
-						$this->error[] = $add_session['error'];
-					}
+					$this->error[] = $add_session['error'];
 				}
-				// reservation
-				$add_reservation = $this->db->add_reservation($room_id,$username,$start_datetime,$end_datetime,$session_id,$reminder);
-				if(empty($add_reservation['error']))
-				{
-					$this->send_confirmation('save',$room_id,$username,$start_datetime,$end_datetime,$subject,$notes);
-					$this->success[] = $this->config->messages['success']['add_reservation'];
-				}
-				else
-				{
-					$this->error[] = $add_reservation['error'];
-				}
+			}
+			// reservation
+			$add_reservation = $this->db->add_reservation($room_id,$username,$start_datetime,$end_datetime,$session_id,$reminder);
+			if(empty($add_reservation['error']))
+			{
+				$this->send_confirmation('save',$room_id,$username,$start_datetime,$end_datetime,$subject,$notes);
+				$this->success[] = $this->config->messages['success']['add_reservation'];
+			}
+			else
+			{
+				$this->error[] = $add_reservation['error'];
 			}
 		}
 	}
@@ -1703,6 +1698,25 @@ class ZSR_Study_Rooms_Reservation
 		$start = strtotime($start);
 		$end = strtotime($end);
 		return ($end - $start)/(60*60);
+	}
+
+	private function overbooked_reservation($username,$room_id,$start_datetime,$end_datetime)
+	{
+		if($this->db->get_double_booked_reservation($username,$room_id,$start_datetime,$end_datetime))
+		{
+			if($this->user->is_admin())
+			{
+				// @todo add admin confirmation?
+				// <p class="admin-double-booked">You have another reservation at the same time. <label>Continue? <input type="checkbox" name="admin-double-booked"></label></p>
+				return false;
+			}
+
+			$this->error[] = $this->config->messages['error']['user_double_booked'];
+
+			return true;
+		}
+
+		return false;
 	}
 
 	private function over_day_hour_limit($open,$close,$this_start_datetime,$this_end_datetime,$username)
