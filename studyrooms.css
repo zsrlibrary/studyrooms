@@ -221,6 +221,7 @@ fieldset #this_reservation { margin: 0 0 1.5em 0; }
 
 .srs-upcoming-reservations { border: 1px solid #e3decf; padding: 3%; }
 .srs-upcoming-reservations h3 { margin: 0; }
+.srs-upcoming-reservations .cancel a { border: none; color: #f00; }
 
 .srs-support h4 { display: none; }
 .srs-support p { margin: 0; }
