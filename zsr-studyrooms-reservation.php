@@ -522,7 +522,7 @@ class ZSR_Study_Rooms_Reservation
 				if($user_has_reservations)
 				{
 					$reservation_grid_container .= '<button type="submit" name="mode" id="update" value="update">Save changes</button> ';
-					$reservation_grid_container .= '<p class="cancel">or <a href="'.$this->set_url($this->config->dir.'cancel/'.implode(':',$active_reservation_id)).'">cancel this reservation</a></p>';
+					$reservation_grid_container .= '<div class="btn-alt">or <a class="btn-link" href="'.$this->set_url($this->config->dir.'cancel/'.implode(':',$active_reservation_id)).'">cancel this reservation</a> &#8250;</div>';
 				}
 				else
 				{
@@ -1659,7 +1659,9 @@ class ZSR_Study_Rooms_Reservation
 			$this_reservation = '<a href="'.$this->set_url($url).'">'.implode(' ',$text).'</a>: '.$today_alert.$day_of_week.$date;
 		}
 
-		return $this_reservation.' '.$starts.' - '.$ends.' in <em>'.$this_room.' ('.$location.')</em>';
+		$opt_cancel = '<span class="cancel"><a href="'.$this->set_url($this->config->dir.'cancel/'.$reservation['reservation_id']).'" title="Cancel this reservation">&#215;</a></span>';
+
+		return $this_reservation.' '.$starts.' - '.$ends.' in <span class="location">'.$this_room.' ('.$location.')</span> '.$opt_cancel;
 	}
 
 	private function lacking_time_between($reservations)
