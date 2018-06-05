@@ -4,5 +4,5 @@
 - The app does not require or manage user accounts. For user authentication, we use an LDAP connection.
 - All layout and presentation changes can be managed in plain CSS.
 - In 2014, we updated the application with a compact responsive retrofit.
-- Reservation interactions are handled via plain JavaScript. (It was written before any frameworks or libraries were as popular - and reliable - as they became.)
+- Reservation interactions are handled via plain JavaScript. (It was written before any frameworks or libraries were as popular—and reliable—as they became.)
 - Beyond a few updates, it has not seen—nor required—any consequential maintenance.
